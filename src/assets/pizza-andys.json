@@ -1,0 +1,102 @@
+[
+  {
+    "id": 0,
+    "imageUrl": "/img/andys/1.jpg",
+    "title": "Scampi 🦐",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 3.35,
+    "category": 0,
+    "rating": 4
+  },
+  {
+    "id": 1,
+    "imageUrl": "/img/andys/2.jpg",
+    "title": "Vegetables 🥦",
+    "types": [0],
+    "sizes": [26, 40],
+    "price": 3.35,
+    "category": 0,
+    "rating": 6
+  },
+  {
+    "id": 2,
+    "imageUrl": "/img/andys/3.jpg",
+    "title": "Five Cheeses 🧀",
+    "types": [0],
+    "sizes": [26, 40],
+    "price": 3.35,
+    "category": 1,
+    "rating": 4
+  },
+  {
+    "id": 3,
+    "imageUrl": "/img/andys/4.jpg",
+    "title": "Tonno 🐟",
+    "types": [1],
+    "sizes": [26, 30, 40],
+    "price": 3.35,
+    "category": 2,
+    "rating": 2
+  },
+  {
+    "id": 4,
+    "imageUrl": "/img/andys/5.jpg",
+    "title": "Capriciosa 🍆",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 3.35,
+    "category": 3,
+    "rating": 8
+  },
+  {
+    "id": 5,
+    "imageUrl": "/img/andys/6.jpg",
+    "title": "Mario 🍅",
+    "types": [0],
+    "sizes": [30, 40],
+    "price": 3.35,
+    "category": 2,
+    "rating": 2
+  },
+  {
+    "id": 6,
+    "imageUrl": "/img/andys/7.jpg",
+    "title": "Pepperoni 🔴",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 3.35,
+    "category": 1,
+    "rating": 9
+  },
+  {
+    "id": 7,
+    "imageUrl": "/img/andys/8.jpg",
+    "title": "Margherita 🍃",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 3.35,
+    "category": 4,
+    "rating": 10
+  },
+  {
+    "id": 8,
+    "imageUrl": "/img/andys/9.jpg",
+    "title": "Neapolitana 🍈",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 3.35,
+    "category": 5,
+    "rating": 10
+  },
+  {
+    "id": 9,
+    "imageUrl": "/img/andys/10.jpg",
+    "title": "Diablo",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 3.35,
+    "category": 5,
+    "rating": 7
+  }
+]
