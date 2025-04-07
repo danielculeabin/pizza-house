@@ -6,7 +6,7 @@ function PizzaBlock({ title, price, image, sizes, types }) {
   const typeNames = ['thin', 'traditional'];
 
   return (
-    <>
+    <div className="pizza-block-wrapper">
       <div className="pizza-block">
         <img className="pizza-block__image" src={image} alt="Pizza" />
         <h4 className="pizza-block__title">{title}</h4>
@@ -51,7 +51,7 @@ function PizzaBlock({ title, price, image, sizes, types }) {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
