@@ -2,9 +2,12 @@ import React from 'react';
 const Cart = () => {
   return (
     <>
-      <span>🛒</span>
-      <h1>Cart</h1>
+      <center>
+        <h1>🛒</h1>
+        <h1>Cart </h1>
+      </center>
       <br />
+      <hr />
       <span>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, autem? Consequuntur
         omnis minus enim doloremque ex dolore repudiandae iure. Ut architecto, fuga aliquam vel unde
