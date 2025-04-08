@@ -79,7 +79,7 @@ const Cart = () => {
               />
             </div>
             <div class="cart__item-info">
-              <h3>Pepperoni</h3>
+              <h3>Pepperoni Fresh 🌶️</h3>
               <p>thin dough, 26 cm.</p>
             </div>
             <div class="cart__item-count">
@@ -116,7 +116,7 @@ const Cart = () => {
               </div>
             </div>
             <div class="cart__item-price">
-              <b>2.25 $</b>
+              <b>4.22 $</b>
             </div>
             <div class="cart__item-remove">
               <div class="button button--outline button--circle">
@@ -145,7 +145,7 @@ const Cart = () => {
               />
             </div>
             <div class="cart__item-info">
-              <h3>Four Seasons</h3>
+              <h3>Four Seasons 🍁</h3>
               <p>thin dough, 26 cm.</p>
             </div>
             <div class="cart__item-count">
@@ -182,7 +182,7 @@ const Cart = () => {
               </div>
             </div>
             <div class="cart__item-price">
-              <b>2.25 $</b>
+              <b>2.07 $</b>
             </div>
             <div class="cart__item-remove">
               <div class="button button--outline button--circle">
@@ -211,7 +211,7 @@ const Cart = () => {
               />
             </div>
             <div class="cart__item-info">
-              <h3>BBQ</h3>
+              <h3>Chicken BBQ ♨️</h3>
               <p>thin dough, 26 cm.</p>
             </div>
             <div class="cart__item-count">
@@ -248,7 +248,7 @@ const Cart = () => {
               </div>
             </div>
             <div class="cart__item-price">
-              <b>2.25 $</b>
+              <b>1.55 $</b>
             </div>
             <div class="cart__item-remove">
               <div class="button button--outline button--circle">
@@ -277,7 +277,7 @@ const Cart = () => {
               />
             </div>
             <div class="cart__item-info">
-              <h3>Hawaii</h3>
+              <h3>Hawaii 🌴</h3>
               <p>thing dough, 26 cm.</p>
             </div>
             <div class="cart__item-count">
@@ -314,7 +314,7 @@ const Cart = () => {
               </div>
             </div>
             <div class="cart__item-price">
-              <b>2.25 $</b>
+              <b>3.55 $</b>
             </div>
             <div class="cart__item-remove">
               <div class="button button--outline button--circle">
