@@ -1,14 +1,16 @@
 import React from 'react';
+import Skeleton from '../components/PizzaBlock/Skeleton';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock/index';
-import Skeleton from '../components/PizzaBlock/Skeleton';
+import Pagination from '../components/Pagination';
 
-const Home = () => {
+const Home = ({ searchValue }) => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(1);
   const [sortType, setSortType] = React.useState({
     name: 'rating',
     sortProperty: 'rating',
@@ -17,12 +19,13 @@ const Home = () => {
   React.useEffect(() => {
     setIsLoading(true); // optional - to show skeletons again when changing category
 
+    const category = categoryId > 0 ? `category=${categoryId}` : '';
     const sortBy = sortType.sortProperty.replace('-', '');
     const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
-    const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const search = searchValue ? `search=${searchValue}` : '';
 
     fetch(
-      `https://67e4411b2ae442db76d3b37f.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`,
+      `https://67e4411b2ae442db76d3b37f.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&${search}`,
     )
       .then((res) => res.json())
       .then((data) => {
@@ -37,7 +40,19 @@ const Home = () => {
       });
 
     window.scrollTo(0, 0);
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, searchValue, currentPage]);
+
+  // Функционал поиска и нахождения пицц
+  const products = items
+    .filter((obj) => {
+      if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
+        return true;
+      }
+      return false;
+    })
+    .map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+
+  const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
   return (
     <div className="container">
@@ -46,11 +61,8 @@ const Home = () => {
         <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
       <h2 className="content__title">All Pizzas</h2>
-      <div className="content__items">
-        {isLoading
-          ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-          : items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
-      </div>
+      <div className="content__items">{isLoading ? skeletons : products}</div>
+      <Pagination currentPage={currentPage} onChangePage={(pageNumber) => setCurrentPage(pageNumber)}/>
     </div>
   );
 };
