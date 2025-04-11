@@ -1,11 +1,14 @@
 import React from 'react';
+import { SearchContext } from '../../App';
 
 import styles from './Search.module.scss';
 
-const Search = ({ searchValue, setSearchValue }) => {
+const Search = () => {
+  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+
   return (
     <div className={styles.root}>
-      {/* search-icon-svg */}
+      {/* search-icon*/}
       <svg
         className={styles.icon}
         enableBackground="new 0 0 32 32"

@@ -6,7 +6,10 @@ import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock/index';
 import Pagination from '../components/Pagination';
 
-const Home = ({ searchValue }) => {
+import { SearchContext } from '../App';
+
+const Home = () => {
+  const { searchValue } = React.useContext(SearchContext);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
@@ -17,13 +20,14 @@ const Home = ({ searchValue }) => {
   });
 
   React.useEffect(() => {
-    setIsLoading(true); // optional - to show skeletons again when changing category
+    setIsLoading(true);
 
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const sortBy = sortType.sortProperty.replace('-', '');
     const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
     const search = searchValue ? `search=${searchValue}` : '';
 
+    // Запрашиваем массив пицц с бэкэнда mockapi
     fetch(
       `https://67e4411b2ae442db76d3b37f.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&${search}`,
     )
@@ -62,7 +66,10 @@ const Home = ({ searchValue }) => {
       </div>
       <h2 className="content__title">All Pizzas</h2>
       <div className="content__items">{isLoading ? skeletons : products}</div>
-      <Pagination currentPage={currentPage} onChangePage={(pageNumber) => setCurrentPage(pageNumber)}/>
+      <Pagination
+        currentPage={currentPage}
+        onChangePage={(pageNumber) => setCurrentPage(pageNumber)}
+      />
     </div>
   );
 };
