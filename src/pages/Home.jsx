@@ -1,11 +1,9 @@
 import React from 'react';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock/index';
 import Pagination from '../components/Pagination';
-
 import { SearchContext } from '../App';
 
 const Home = () => {
