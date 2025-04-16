@@ -1,15 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './slices/filterSlice';
+import filterSlice from './slices/filterSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    filterSlice,
   },
 });
 
-// console.log(store);  Когда что-то импортируешь - всегда проверяй что это в консоли 
-
+// console.log(store);  Когда что-то импортируешь - всегда проверяй что это в консоли
 // Переменная 'store' - это Redux Хранилище. Вот что в этом объекте 'store' хранится:
+
 /**
 |--------------------------------------------------
 •@@observable: ƒ observable()
