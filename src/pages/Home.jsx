@@ -1,7 +1,6 @@
 import React from 'react';
-import qs from 'qs';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategoryId } from '../redux/slices/filterSlice';
 
 import { Skeleton, Categories, Sort, PizzaBlock, Pagination } from '../components';
 
@@ -13,10 +12,7 @@ import { sortList } from '../components/Sort';
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isSearch = React.useRef(false);
-  const isMounted = React.useRef(false);
-
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filterSlice);
+  const { categoryId, sort } = useSelector((state) => state.filterSlice);
 
   const { searchValue } = React.useContext(SearchContext);
   const [items, setItems] = React.useState([]);
@@ -39,12 +35,18 @@ const Home = () => {
     const search = searchValue ? `search=${searchValue}` : '';
 
     // Запрашиваем массив пицц с бэкэнда mockapi
-    axios
-      .get(
-        `https://67e4411b2ae442db76d3b37f.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&${search}`,
-      )
-      .then((res) => {
-        setItems(res.data);
+    fetch(
+      `https://67e4411b2ae442db76d3b37f.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&${search}`,
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        //console.log(data); // for debugging, remove later
+        setItems(Array.isArray(data) ? data : []); // safe guard, this is what fixed the problem
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error('Failed to fetch items:', err);
+        setItems([]); // fallback
         setIsLoading(false);
       });
   };
