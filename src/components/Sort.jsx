@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSort } from '../redux/slices/filterSlice';
+import { setSort } from '../redux/slice';
 
-const list = [
+export const sortList = [
   { name: 'rating (DESC)', sortProperty: 'rating' },
   { name: 'rating (ASC)', sortProperty: '-rating' },
   { name: 'price (DESC)', sortProperty: 'price' },
@@ -13,7 +13,8 @@ const list = [
 
 function Sort() {
   const dispatch = useDispatch();
-  const sort = useSelector((state) => state.filterSlice.sort);
+  // Получаем текущий объект sort из Redux
+  const currentSort = useSelector((state) => state.filterSlice.sort);
 
   const [open, setOpen] = React.useState(false);
 
@@ -38,16 +39,16 @@ function Sort() {
             />
           </svg>
           <b>Sort by:</b>
-          <span onClick={() => setOpen(!open)}>{sort.name}</span>
+          <span onClick={() => setOpen(!open)}>{currentSort.name}</span>
         </div>
         {open && (
           <div className="sort__popup">
             <ul>
-              {list.map((obj, i) => (
+              {sortList.map((obj, i) => (
                 <li
                   key={i}
                   onClick={() => onClickListItem(obj)}
-                  className={sort.sortProperty === obj.sortProperty ? 'active' : ''}>
+                  className={currentSort.sortProperty === obj.sortProperty ? 'active' : ''}>
                   {obj.name}
                 </li>
               )) || <li>No list available</li>}

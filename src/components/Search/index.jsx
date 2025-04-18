@@ -69,7 +69,6 @@ const Search = () => {
         ref={inputRef}
         value={value}
         onChange={onChangeInput}
-        //(event) => setSearchValue(event.target.value)
         className={styles.input}
         placeholder="Search product..."
       />
