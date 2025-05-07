@@ -16,8 +16,7 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filterSlice);
-
+  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
   const { searchValue } = React.useContext(SearchContext);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -49,20 +48,6 @@ const Home = () => {
       });
   };
 
-  //Если изменили параметры и был первый рендер
-  React.useEffect(() => {
-    if (isMounted.current) {
-      const queryString = qs.stringify({
-        sortProperty: sort.sortProperty,
-        categoryId,
-        currentPage,
-      });
-
-      navigate(`?${queryString}`);
-    }
-    isMounted.current = true;
-  }, [categoryId, sort.sortProperty, currentPage]);
-
   //Если был первый рендер, то проверяем URL-параметры и сохраняем их в редуксе
   React.useEffect(() => {
     if (window.location.search) {
@@ -90,6 +75,20 @@ const Home = () => {
 
     isSearch.current = false;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+
+  //Если изменили параметры и был первый рендер
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortProperty: sort.sortProperty,
+        categoryId,
+        currentPage,
+      });
+
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
+  }, [categoryId, sort.sortProperty, currentPage]);
 
   // Функционал поиска и нахождения пицц
   const products = items
