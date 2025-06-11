@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSort } from '../redux/slice';
+import { selectSort, setSort } from '../redux/slice/filterSlice';
 
 export const sortList = [
   { name: 'rating (DESC)', sortProperty: 'rating' },
@@ -13,8 +13,7 @@ export const sortList = [
 
 function Sort() {
   const dispatch = useDispatch();
-  // Получаем текущий объект sort из Redux
-  const currentSort = useSelector((state) => state.filter.sort);
+  const currentSort = useSelector(selectSort);
   const sortRef = React.useRef(); // ссылка на дом элемент
 
   const [open, setOpen] = React.useState(false);

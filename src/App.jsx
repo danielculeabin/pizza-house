@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Cart from './pages/Cart';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
-import { useSelector, useDispatch } from 'react-redux';
+import FullPizza from './pages/FullPizza';
+
+import { createContext } from 'react';
 
 import './scss/app.scss';
 
-export const SearchContext = React.createContext(); // Создали правило - глобальную переменную
-
 function App() {
-  const [searchValue, setSearchValue] = React.useState('');
-  const path = window.location.pathname;
+  const SearchContext = createContext();
+  const [searchValue, setSearchValue] = useState('');
 
   return (
     <>
@@ -24,6 +24,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/pizza/:id/:string" element={<FullPizza />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

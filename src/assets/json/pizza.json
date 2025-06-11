@@ -1,7 +1,7 @@
 [
   {
     "id": 0,
-    "image": "https://media.dodostatic.net/image/r:292x292/11EE7D61706D472F9A5D71EB94149304.jpg",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D61706D472F9A5D71EB94149304.jpg",
     "title": "Pepperoni Fresh 🌶️",
     "types": [0, 1],
     "sizes": [26, 30, 40],
@@ -11,7 +11,7 @@
   },
   {
     "id": 1,
-    "image": "https://media.dodostatic.net/image/r:292x292/11EE7D610D2925109AB2E1C92CC5383C.jpg",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D610D2925109AB2E1C92CC5383C.jpg",
     "title": "Cheesy! 🧀",
     "types": [0],
     "sizes": [26, 40],
@@ -21,7 +21,7 @@
   },
   {
     "id": 2,
-    "image": "https://media.dodostatic.net/image/r:292x292/11EE7D6110059795842D40396BCF1E73.jpg",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D6110059795842D40396BCF1E73.jpg",
     "title": "Chicken BBQ ♨️",
     "types": [0],
     "sizes": [26, 40],
@@ -31,7 +31,7 @@
   },
   {
     "id": 3,
-    "image": "https://media.dodostatic.net/image/r:292x292/11EE7D610E8BBB248F31270BE742B4BD.jpg",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D610E8BBB248F31270BE742B4BD.jpg",
     "title": "Sweet-Sour Chicken🍗",
     "types": [1],
     "sizes": [26, 30, 40],
@@ -41,7 +41,7 @@
   },
   {
     "id": 4,
-    "image": "https://media.dodostatic.net/image/r:292x292/11EE7D61698827EE9B8DB6D0AEC53410.jpg",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D61698827EE9B8DB6D0AEC53410.jpg",
     "title": "Cheesburger-Pizza 🍔",
     "types": [0, 1],
     "sizes": [26, 30, 40],
@@ -51,7 +51,7 @@
   },
   {
     "id": 5,
-    "image": "https://media.dodostatic.net/image/r:292x292/11EE7D610A62D78598406363A9A8AD65.jpg",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D610A62D78598406363A9A8AD65.jpg",
     "title": "Pepperoni 🔴",
     "types": [0],
     "sizes": [30, 40],
@@ -61,7 +61,7 @@
   },
   {
     "id": 6,
-    "image": "https://media.dodostatic.net/image/r:292x292/11EE7D617E9339CFB185921A343AD8FD.jpg",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D617E9339CFB185921A343AD8FD.jpg",
     "title": "Hawaiian 🌴",
     "types": [0, 1],
     "sizes": [26, 30, 40],
@@ -71,7 +71,7 @@
   },
   {
     "id": 7,
-    "image": "https://media.dodostatic.net/image/r:292x292/11EE7D6150D498419E133DF19945A00D.jpg",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D6150D498419E133DF19945A00D.jpg",
     "title": "BBQ Sausages 🔥",
     "types": [0, 1],
     "sizes": [26, 30, 40],
@@ -81,7 +81,7 @@
   },
   {
     "id": 8,
-    "image": "https://media.dodostatic.net/image/r:292x292/11EE7D611ADF5AAD898B8B651186E023.jpg",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D611ADF5AAD898B8B651186E023.jpg",
     "title": "Four Seasons 🍁",
     "types": [0, 1],
     "sizes": [26, 30, 40],
@@ -91,7 +91,7 @@
   },
   {
     "id": 9,
-    "image": "https://media.dodostatic.net/image/r:292x292/11EE7D61546D8483A61A0BBAA7ADCC78.jpg",
+    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D61546D8483A61A0BBAA7ADCC78.jpg",
     "title": "Veggies-Mushrooms🥬",
     "types": [0, 1],
     "sizes": [26, 30, 40],
