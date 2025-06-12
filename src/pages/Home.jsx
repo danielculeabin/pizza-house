@@ -38,15 +38,6 @@ const Home = () => {
     const category = categoryId > 0 ? categoryId : null;
     const search = searchValue ? `search=${searchValue}` : '';
 
-    console.log('Parameters sent to fetchPizzas:', {
-      sortBy,
-      order,
-      page: currentPage,
-      limit: 4,
-      category: category, // Тут будет либо число, либо null
-      searchValue: searchValue, // Это сам searchValue
-    });
-
     dispatch(
       fetchPizzas({
         params: {
