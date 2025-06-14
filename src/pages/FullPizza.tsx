@@ -2,8 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const FullPizza = () => {
-  const [pizza, setPizza] = React.useState();
+const FullPizza: React.FC = () => {
+  const [pizza, setPizza] = React.useState<{
+    imageUrl: string;
+    title: string; //? typescript
+    price: number;
+  }>();
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -14,17 +19,19 @@ const FullPizza = () => {
         setPizza(data);
       } catch (error) {
         alert('Error happened while receiving the pizzas!');
-        navigate("/");
+        navigate('/');
       }
     }
 
     fetchPizza();
   }, []);
 
+  // Если будет 'undefined' тогда рендерь загрузку
   if (!pizza) {
-    return 'Loading...';
+    return <>Loading...</>;
   }
 
+  // Проверку выше сделали, теперь jsx разметка может рендериться спокойно потому что онa берёт данные из объекта а не из потенциального сценария "undefined"
   return (
     <div className="container">
       <img src={pizza.imageUrl} />

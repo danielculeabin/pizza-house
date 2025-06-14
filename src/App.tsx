@@ -8,11 +8,16 @@ import FullPizza from './pages/FullPizza';
 
 import './scss/app.scss';
 
-export const SearchContext = createContext();
+// *** ВОТ ИСПРАВЛЕНИЕ ***
+// Добавляем дефолтное значение для createContext
+export const SearchContext = createContext({
+  searchValue: '',// Дефолтное значение для searchValue
+  setSearchValue: (value: string) => {},// Пустая функция для setSearchValue
+});
 
 function App() {
   const [searchValue, setSearchValue] = useState('');
-
+  
   return (
     <SearchContext.Provider value={{ searchValue, setSearchValue }}>
       <Routes>

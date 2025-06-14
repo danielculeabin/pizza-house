@@ -30,7 +30,7 @@ const Home = () => {
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
   };
-
+  
   // Запрос пицц
   const getPizzas = () => {
     const sortBy = sort.sortProperty.replace('-', '');
