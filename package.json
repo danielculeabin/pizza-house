@@ -12,6 +12,8 @@
   "dependencies": {
     "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.6.1",
+    "@types/lodash.debounce": "^4.0.9",
+    "@types/qs": "^6.14.0",
     "axios": "^1.8.4",
     "lodash.debounce": "^4.0.8",
     "qs": "^6.14.0",

@@ -2,7 +2,18 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSort, setSort } from '../redux/slice/filterSlice';
 
-export const sortList = [
+type SortItem = {
+  name: string;
+  sortProperty: string;
+};
+
+type SortProps = {
+  value: SortItem;
+  onChangeSort: (i: SortItem) => void;
+}
+
+// Говорим что это не просто объект SortItem, а массив состоящий объектов SortItem
+export const sortList: SortItem [] = [
   { name: 'rating (DESC)', sortProperty: 'rating' },
   { name: 'rating (ASC)', sortProperty: '-rating' },
   { name: 'price (DESC)', sortProperty: 'price' },
@@ -11,20 +22,21 @@ export const sortList = [
   { name: 'title (ASC)', sortProperty: '-title' },
 ];
 
-function Sort() {
-  const dispatch = useDispatch();
-  const currentSort = useSelector(selectSort);
-  const sortRef = React.useRef(); // ссылка на дом элемент
+function Sort({ value, onChangeSort }: SortProps) {
 
+  const dispatch = useDispatch();
+  const currentSort: SortItem = useSelector(selectSort);
+  const sortRef = React.useRef<HTMLDivElement>(null); 
   const [open, setOpen] = React.useState(false);
 
-  const onClickListItem = (obj) => {
+  // Типизируем obj как SortItem, так как он приходит из SortList
+  const onClickListItem = (obj:SortItem) => {
     dispatch(setSort(obj));
     setOpen(false);
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: any) => {
       if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
@@ -51,7 +63,7 @@ function Sort() {
             />
           </svg>
           <b>Sort by:</b>
-          <span onClick={() => setOpen(!open)}>{currentSort.name}</span>
+          <span onClick={() => setOpen(!open)}>{value.name}</span>
         </div>
         {open && (
           <div className="sort__popup">
@@ -60,7 +72,7 @@ function Sort() {
                 <li
                   key={i}
                   onClick={() => onClickListItem(obj)}
-                  className={currentSort.sortProperty === obj.sortProperty ? 'active' : ''}>
+                  className={value.sortProperty === obj.sortProperty ? 'active' : ''}>
                   {obj.name}
                 </li>
               )) || <li>No list available</li>}
