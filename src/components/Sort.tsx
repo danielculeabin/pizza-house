@@ -12,6 +12,10 @@ type SortProps = {
   onChangeSort: (i: SortItem) => void;
 }
 
+type PopupClick = MouseEvent & {
+  path: Node[];
+};
+
 // Говорим что это не просто объект SortItem, а массив состоящий объектов SortItem
 export const sortList: SortItem [] = [
   { name: 'rating (DESC)', sortProperty: 'rating' },
@@ -26,6 +30,7 @@ function Sort({ value, onChangeSort }: SortProps) {
 
   const dispatch = useDispatch();
   const currentSort: SortItem = useSelector(selectSort);
+  
   const sortRef = React.useRef<HTMLDivElement>(null); 
   const [open, setOpen] = React.useState(false);
 
@@ -36,8 +41,9 @@ function Sort({ value, onChangeSort }: SortProps) {
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as PopupClick;
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setOpen(false);
       }
     };

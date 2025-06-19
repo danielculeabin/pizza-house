@@ -13,9 +13,7 @@ const Search: React.FC = () => {
   const onClickClear = () => {
     dispatch(setSearchValue(''));
     setValue('');
-
-    //* "?." - 'Optional chaining' бронежилет против ошибок "Cannot read property of undefined/null".
-    inputRef.current?.focus();  
+    inputRef.current?.focus();  //* "?." - 'Optional chaining' 
   };
 
   const updateSearchValue = useCallback(
@@ -25,7 +23,7 @@ const Search: React.FC = () => {
     [],
   );
 
-  const onChangeInput = (event: any) => {
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };

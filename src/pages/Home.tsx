@@ -1,5 +1,5 @@
 import React from 'react';
-import qs from 'qs'; 
+import qs from 'qs';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Skeleton, Categories, Sort, PizzaBlock, Pagination } from '../components';
@@ -9,7 +9,7 @@ import {
   setCategoryId,
   setCurrentPage,
   setFilters,
-  setSort
+  setSort,
 } from '../redux/slice/filterSlice';
 
 import { fetchPizzas, selectPizzaData } from '../redux/slice/pizzaSlice';
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
   };
-  
+
   // Запрос пицц
   const getPizzas = () => {
     const sortBy = sort.sortProperty.replace('-', '');
@@ -106,7 +106,11 @@ const Home: React.FC = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories value={categoryId} onChangeCategory={onChangeCategory} />
+        <Categories
+          value={categoryId}
+          onChangeCategory={onChangeCategory}
+          getCategories={() => {}}
+        />
         <Sort value={sort} onChangeSort={(i) => dispatch(setSort(i))} />
       </div>
       <h2 className="content__title">All Pizzas</h2>
