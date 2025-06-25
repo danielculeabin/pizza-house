@@ -1,6 +1,6 @@
 import React from 'react';
 import qs from 'qs';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Skeleton, Categories, Sort, PizzaBlock, Pagination } from '../components';
 
@@ -11,14 +11,16 @@ import {
   setFilters,
   setSort,
 } from '../redux/slice/filterSlice';
+import { Sort as SortItem, SetFiltersPayload, FilterSliceState } from '../types/filter';
 
 import { fetchPizzas, selectPizzaData } from '../redux/slice/pizzaSlice';
-
 import { sortList } from '../components/Sort';
+import { useAppDispatch } from '../redux/store';
+import { PizzaQueryParams, SortPropertyWithoutMinus, FetchPizzasArgs } from '../types/pizza';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
@@ -34,14 +36,16 @@ const Home: React.FC = () => {
   };
 
   // Запрос пицц
-  const getPizzas = () => {
-    const sortBy = sort.sortProperty.replace('-', '');
+  const getPizzas = async () => {
+    const sortBy: SortPropertyWithoutMinus = sort.sortProperty.replace(
+      '-',
+      '',
+    ) as SortPropertyWithoutMinus;
     const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
     const category = categoryId > 0 ? categoryId : null;
-    const search = searchValue ? `search=${searchValue}` : '';
+    const search = searchValue;
 
     dispatch(
-      // @ts-ignore
       fetchPizzas({
         params: {
           sortBy,
@@ -60,18 +64,29 @@ const Home: React.FC = () => {
   // Чтение URL и установка фильтров
   React.useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-      const foundSort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
+      // Парсим строку запроса. qs.parse() возвращает объект с string-значениями.
+      const params = qs.parse(window.location.search.substring(1)) as {
+        sortBy?: string;
+        order?: string;
+        categoryId?: string;
+        search?: string;
+        currentPage?: string;
+      };
+      // Находим объект сортировки, соответствующий параметру из URL
+      const foundSort = sortList.find((obj) => obj.sortProperty === params.sortBy);
 
-      dispatch(
-        setFilters({
-          ...params,
-          sort: foundSort || sortList[0],
-        }),
-      );
+      // Формируем payload для setFilters
+      const payloadToSet: SetFiltersPayload = {
+        categoryId: params.categoryId ? Number(params.categoryId) : 0,
+        currentPage: params.currentPage ? Number(params.currentPage) : 1,
+        searchValue: params.search || '',
+        sort: foundSort || sortList[0],
+      };
+
+      dispatch(setFilters(payloadToSet)); // Передаем полностью сформированный объект
       isSearch.current = true;
     }
-  }, []);
+  }, []); // Зависимости: пустой массив, чтобы запустился один раз при монтировании
 
   // Запрос пицц после установки фильтров
   React.useEffect(() => {
@@ -93,7 +108,18 @@ const Home: React.FC = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sort.sortProperty, currentPage]);
+
+    //TODO---------------------------------------
+    // Узнать надо ли это делать?
+    if (!window.location.search){
+      dispatch(fetchPizzas({} as FetchPizzasArgs));
+    }
+
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+
+  React.useEffect(() => {
+    getPizzas();
+  }, [categoryId, sort.sortProperty, searchValue, currentPage])
 
   const pizzas = items.map((obj: any) => (
     <Link key={obj.id} to={`/pizza/${obj.id}`}>

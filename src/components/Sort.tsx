@@ -1,11 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSort, setSort } from '../redux/slice/filterSlice';
-
-type SortItem = {
-  name: string;
-  sortProperty: string;
-};
+import { Sort as SortItem, SortPropertyEnum } from '../types/filter';
 
 type SortProps = {
   value: SortItem;
@@ -17,35 +13,40 @@ type PopupClick = MouseEvent & {
 };
 
 // Говорим что это не просто объект SortItem, а массив состоящий объектов SortItem
+//'rating' as const
+//'-rating' as const
 export const sortList: SortItem [] = [
-  { name: 'rating (DESC)', sortProperty: 'rating' },
-  { name: 'rating (ASC)', sortProperty: '-rating' },
-  { name: 'price (DESC)', sortProperty: 'price' },
-  { name: 'price (ASC)', sortProperty: '-price' },
-  { name: 'title (DESC)', sortProperty: 'title' },
-  { name: 'title (ASC)', sortProperty: '-title' },
+  { name: 'rating (DESC)', sortProperty: SortPropertyEnum.RATING_DESC },
+  { name: 'rating (ASC)', sortProperty: SortPropertyEnum.RATING_ASC },
+  { name: 'price (DESC)', sortProperty: SortPropertyEnum.PRICE_DESC },
+  { name: 'price (ASC)', sortProperty: SortPropertyEnum.PRICE_ASC },
+  { name: 'title (DESC)', sortProperty: SortPropertyEnum.TITLE_DESC },
+  { name: 'title (ASC)', sortProperty: SortPropertyEnum.TITLE_ASC },
 ];
+// Говорим, что это массив объектов SortItem и используем `as const` для sortProperty
+// `as const` делает строковые литералы (типа 'rating') именно такими, а не просто 'string'.
+// Это дает TypeScript больше информации и улучшает проверку типов.
 
 function Sort({ value, onChangeSort }: SortProps) {
 
   const dispatch = useDispatch();
   const currentSort: SortItem = useSelector(selectSort);
   
+  // sortRef теперь явно знает, что это div-элемент
   const sortRef = React.useRef<HTMLDivElement>(null); 
   const [open, setOpen] = React.useState(false);
 
-  // Типизируем obj как SortItem, так как он приходит из SortList
+  // Когда пользователь кликает на элемент списка сортировки
   const onClickListItem = (obj:SortItem) => {
-    dispatch(setSort(obj));
-    setOpen(false);
+    dispatch(setSort(obj)); // Вызываем функцию из пропсов, чтобы обновить Redux
+    setOpen(false); // Закрываем выпадающее меню
   };
 
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const _event = event as PopupClick;
-      if (sortRef.current && !_event.path.includes(sortRef.current)) {
-        setOpen(false);
-      }
+      if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
+      setOpen(false);
+    }
     };
 
     document.body.addEventListener('click', handleClickOutside);
