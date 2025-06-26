@@ -10,13 +10,13 @@ import { Provider } from 'react-redux'; // Помогает react-у дружи�
 const root = createRoot(document.getElementById('root')!);
 
 root.render(
-  <StrictMode>
+  <>
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Provider store={store}>
         <App />
       </Provider>
     </BrowserRouter>
-  </StrictMode>,
+  </>,
 );
 
 //<StrictMode>add at the end</StrictMode>

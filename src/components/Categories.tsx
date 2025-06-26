@@ -8,11 +8,15 @@ type CategoriesProps = {
 
 const categories = ['All', 'Meat', 'Vegetarian', 'BBQ', 'Spicy', 'Closed'];
 
-const Categories: React.FC<CategoriesProps> = ({ value, getCategories, onChangeCategory }) => {
-  getCategories?.(categories);
+const Categories: React.FC<CategoriesProps> = React.memo(
+  ({ value, getCategories, onChangeCategory }) => {
+    React.useEffect(() => {
+      if (getCategories && typeof getCategories === 'function') {
+        getCategories(categories);
+      }
+    }, [getCategories, categories]);
 
-  return (
-    <>
+    return (
       <div className="categories">
         <ul>
           {categories.map((categoryName, i) => (
@@ -22,8 +26,8 @@ const Categories: React.FC<CategoriesProps> = ({ value, getCategories, onChangeC
           ))}
         </ul>
       </div>
-    </>
-  );
-}
+    );
+  },
+);
 
 export default Categories;

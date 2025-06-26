@@ -1,8 +1,6 @@
 import axios from 'axios';
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
-import { PizzaItem, PizzaQueryParams, FetchPizzasArgs } from '../../types/pizza';
-import { Status } from '../../types/status';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { PizzaItem, FetchPizzasArgs } from './types';
 
 export const fetchPizzas = createAsyncThunk<
   PizzaItem[], // 1. Возвращает МАССИВ "чертежей пицц" (PizzaItem[])
@@ -25,7 +23,7 @@ export const fetchPizzas = createAsyncThunk<
     };
     
     // Условное добавление category и search
-    if (category !== null && category !== undefined && category > 0) { // Если 0 это "Все"
+    if (category !== null && category !== undefined && Number(category) > 0) { // Если 0 это "Все"
       requestParams.category = category;
     }
     if (search) { // Если search не пустая строка
@@ -49,44 +47,3 @@ export const fetchPizzas = createAsyncThunk<
     return rejectWithValue(errorMessage); // Отклоняем thunk с сообщением об ошибке
   }
 });
-
-interface PizzaSliceState {
-  items: PizzaItem[]; // <--- Стейт тоже хранит "чертежи пицц" (PizzaItem[])
-  status: Status;
-}
-
-const initialState: PizzaSliceState = {
-  items: [],
-  status: Status.LOADING, 
-};
-
-const pizzaSlice = createSlice({
-  name: 'pizza',
-  initialState,
-  reducers: {
-    setItems(state, action: PayloadAction<PizzaItem[]>) {
-      state.items = action.payload;
-    },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchPizzas.pending, (state) => {
-        state.status = Status.LOADING;
-        state.items = [];
-      })
-      .addCase(fetchPizzas.fulfilled, (state, action) => {
-        state.items = action.payload; // <--- Теперь action.payload (который PizzaItem[]) идеально подходит для state.items (который тоже PizzaItem[]).
-        state.status = Status.SUCCESS;
-      })
-      .addCase(fetchPizzas.rejected, (state) => {
-        state.status = Status.ERROR;
-        state.items = [];
-      });
-  },
-});
-
-export const selectPizzaData = (state: RootState) => state.pizza;
-
-export const { setItems } = pizzaSlice.actions;
-
-export default pizzaSlice.reducer;

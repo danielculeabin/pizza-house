@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useState, useRef, useCallback } from 'react';
-import { setSearchValue } from '../../redux/slice/filterSlice';
+import { setSearchValue } from '../../redux/filter/slice';
 import debounce from 'lodash.debounce'; // в терминале : `npm i @types/lodash.debounce`
 
 import styles from './Search.module.scss';
@@ -13,7 +13,7 @@ const Search: React.FC = () => {
   const onClickClear = () => {
     dispatch(setSearchValue(''));
     setValue('');
-    inputRef.current?.focus();  //* "?." - 'Optional chaining' 
+    inputRef.current?.focus(); //* "?." - 'Optional chaining'
   };
 
   const updateSearchValue = useCallback(

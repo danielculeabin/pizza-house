@@ -1,22 +1,19 @@
 import React from 'react';
 import qs from 'qs';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Skeleton, Categories, Sort, PizzaBlock, Pagination } from '../components';
 
-import {
-  selectFilter,
-  setCategoryId,
-  setCurrentPage,
-  setFilters,
-  setSort,
-} from '../redux/slice/filterSlice';
-import { Sort as SortItem, SetFiltersPayload, FilterSliceState } from '../types/filter';
+import { selectFilter } from '../redux/filter/selectors'
+import { setCategoryId, setCurrentPage, setFilters, setSort } from '../redux/filter/slice';
 
-import { fetchPizzas, selectPizzaData } from '../redux/slice/pizzaSlice';
+import { Sort as SortItem, SetFiltersPayload } from '../redux/filter';
+
+import {fetchPizzas} from '../redux/pizza/asyncActions'
+import {selectPizzaData } from '../redux/pizza';
 import { sortList } from '../components/Sort';
 import { useAppDispatch } from '../redux/store';
-import { PizzaQueryParams, SortPropertyWithoutMinus, FetchPizzasArgs } from '../types/pizza';
+import { SortPropertyWithoutMinus } from '../redux/pizza';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -27,22 +24,31 @@ const Home: React.FC = () => {
   const { items, status } = useSelector(selectPizzaData);
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
 
-  const onChangeCategory = (idx: number) => {
+  const onChangeCategory = React.useCallback((idx: number) => {
     dispatch(setCategoryId(idx));
-  };
+  }, []);
 
-  const onChangePage = (page: number) => {
+  const onChangePage = React.useCallback((page: number) => {
     dispatch(setCurrentPage(page));
-  };
+  }, []);
 
-  // Запрос пицц
-  const getPizzas = async () => {
+  const onChangeSort = React.useCallback(
+    (i: SortItem) => {
+      dispatch(setSort(i));
+    },
+    [dispatch],
+  );
+
+  const emptyCallBack = React.useCallback(() => {}, []);
+
+  // Запрос пицц - эта функция вызывается из useEffect
+  const getPizzas = React.useCallback(async () => {
     const sortBy: SortPropertyWithoutMinus = sort.sortProperty.replace(
       '-',
       '',
     ) as SortPropertyWithoutMinus;
     const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
-    const category = categoryId > 0 ? categoryId : null;
+    const category = categoryId > 0 ? String(categoryId) : '';
     const search = searchValue;
 
     dispatch(
@@ -52,14 +58,14 @@ const Home: React.FC = () => {
           order,
           page: currentPage,
           limit: 4,
-          ...(category !== null && { category }),
-          ...(searchValue && { search: searchValue }),
+          ...(category && { category }),
+          ...(search && { search }),
         },
       }),
     );
 
     window.scrollTo(0, 0);
-  };
+  }, [categoryId, sort, currentPage, searchValue]);
 
   // Чтение URL и установка фильтров
   React.useEffect(() => {
@@ -108,23 +114,12 @@ const Home: React.FC = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-
-    //TODO---------------------------------------
-    // Узнать надо ли это делать?
-    if (!window.location.search){
-      dispatch(fetchPizzas({} as FetchPizzasArgs));
-    }
-
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  React.useEffect(() => {
-    getPizzas();
-  }, [categoryId, sort.sortProperty, searchValue, currentPage])
-
   const pizzas = items.map((obj: any) => (
-    <Link key={obj.id} to={`/pizza/${obj.id}`}>
-      <PizzaBlock {...obj} />
-    </Link>
+    //<Link key={obj.id} to={`/pizza/${obj.id}`}>
+    <PizzaBlock key={obj.id} {...obj} />
+    // </Link>
   ));
 
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
@@ -135,9 +130,9 @@ const Home: React.FC = () => {
         <Categories
           value={categoryId}
           onChangeCategory={onChangeCategory}
-          getCategories={() => {}}
+          getCategories={emptyCallBack}
         />
-        <Sort value={sort} onChangeSort={(i) => dispatch(setSort(i))} />
+        <Sort value={sort} onChangeSort={onChangeSort} />
       </div>
       <h2 className="content__title">All Pizzas</h2>
       {status === 'error' ? (
