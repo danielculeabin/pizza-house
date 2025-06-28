@@ -8,7 +8,7 @@ type CategoriesProps = {
 
 const categories = ['All', 'Meat', 'Vegetarian', 'BBQ', 'Spicy', 'Closed'];
 
-const Categories: React.FC<CategoriesProps> = React.memo(
+export const Categories: React.FC<CategoriesProps> = React.memo(
   ({ value, getCategories, onChangeCategory }) => {
     React.useEffect(() => {
       if (getCategories && typeof getCategories === 'function') {
@@ -30,4 +30,3 @@ const Categories: React.FC<CategoriesProps> = React.memo(
   },
 );
 
-export default Categories;

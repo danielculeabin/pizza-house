@@ -2,22 +2,19 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSort } from '../redux/filter';
 import { setSort } from '../redux/filter/slice';
-import { Sort as SortItem, SortPropertyEnum } from '../redux/filter';
+import { Sort as SortType, SortPropertyEnum } from '../redux/filter';
 import { useWhyDidYouUpdate } from 'ahooks';
 
 type SortProps = {
-  value: SortItem;
-  onChangeSort: (i: SortItem) => void;
+  value: SortType;
+  onChangeSort: (i: SortType) => void;
 };
 
 type PopupClick = MouseEvent & {
   path: Node[];
 };
 
-// Говорим что это не просто объект SortItem, а массив состоящий объектов SortItem
-//'rating' as const
-//'-rating' as const
-export const sortList: SortItem[] = [
+export const sortList: SortType[] = [
   { name: 'rating (DESC)', sortProperty: SortPropertyEnum.RATING_DESC },
   { name: 'rating (ASC)', sortProperty: SortPropertyEnum.RATING_ASC },
   { name: 'price (DESC)', sortProperty: SortPropertyEnum.PRICE_DESC },
@@ -25,25 +22,19 @@ export const sortList: SortItem[] = [
   { name: 'title (DESC)', sortProperty: SortPropertyEnum.TITLE_DESC },
   { name: 'title (ASC)', sortProperty: SortPropertyEnum.TITLE_ASC },
 ];
-// Говорим, что это массив объектов SortItem и используем `as const` для sortProperty
-// `as const` делает строковые литералы (типа 'rating') именно такими, а не просто 'string'.
-// Это дает TypeScript больше информации и улучшает проверку типов.
 
-const Sort: React.FC<SortProps> = React.memo(({ value, onChangeSort }) => {
+export const Sort: React.FC<SortProps> = React.memo(({ value, onChangeSort }) => {
   const dispatch = useDispatch();
-  const currentSort: SortItem = useSelector(selectSort);
+  const currentSort: SortType = useSelector(selectSort);
 
   useWhyDidYouUpdate('Sort: ', { value });
-  // console.log('Sort.tsx render!');
 
-  // sortRef теперь явно знает, что это div-элемент
   const sortRef = React.useRef<HTMLDivElement>(null);
   const [open, setOpen] = React.useState(false);
 
-  // Когда пользователь кликает на элемент списка сортировки
-  const onClickListItem = (obj: SortItem) => {
-    dispatch(setSort(obj)); // Вызываем функцию из пропсов, чтобы обновить Redux
-    setOpen(false); // Закрываем выпадающее меню
+  const onClickListItem = (obj: SortType) => {
+    dispatch(setSort(obj)); 
+    setOpen(false); 
   };
 
   React.useEffect(() => {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import CartItem from '../components/CartItem';
-import CartEmpty from '../components/CartEmpty';
+import { CartItem, CartEmpty } from '../components'
 import { clearItems } from '../redux/cart/slice';
 import { selectCart } from '../redux/cart';
+
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector(selectCart);
@@ -121,7 +121,7 @@ const Cart: React.FC = () => {
                   strokeLinejoin="round"></path>
               </svg>
 
-              <span>Main menu</span>
+              <span>Main Page</span>
             </Link>
 
             <div className="button pay-btn">

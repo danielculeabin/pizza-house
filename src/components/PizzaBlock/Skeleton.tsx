@@ -1,7 +1,7 @@
 import React from 'react';
-import ContentLoader from 'react-content-loader';
+import ContentLoader, { IContentLoaderProps } from 'react-content-loader';
 
-const Skeleton = (props) => (
+export const Skeleton:React.FC<IContentLoaderProps> = (props) => (
   <ContentLoader
     className="pizza-block"
     speed={2}
@@ -20,5 +20,3 @@ const Skeleton = (props) => (
     <rect x="137" y="413" rx="22" ry="22" width="109" height="45" />
   </ContentLoader>
 );
-
-export default Skeleton;
