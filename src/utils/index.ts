@@ -1,2 +1,2 @@
-export {default as getCartFromLS} from "./getCartFromLS";
-export {default as recalculateTotalPrice} from "./recalculateTotalPrice";
+export * from "./getCartFromLS";
+export * from "./recalculateTotalPrice";
